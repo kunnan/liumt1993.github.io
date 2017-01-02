@@ -7,7 +7,7 @@
 
 # Site settings
 title: liumt1993
-email: liumt993@gmail.com
+email: liumt1993@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   关于前端开发的博客
 baseurl: "" # the subpath of your site, e.g. /blog
