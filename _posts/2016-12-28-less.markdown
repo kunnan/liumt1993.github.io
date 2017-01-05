@@ -5,4 +5,17 @@ date:   2016-12-28
 categories: my blog
 ---
 
-占位
+目录：
+
+1.LESS的起源
+
+2.在LESS出现之前CSS是什么状态
+
+3.LESS解决了哪些问题
+
+4.LESS的未来怎么样
+
+## LESS的起源
+
+Less 由 [Alexis Sellier](https://github.com/cloudhead) 创建于 2009 年，在 Twitter 上叫做 [@cloudhead](https://twitter.com/cloudhead)。Less 最初使用 Ruby 开发的，后来移植到了 JavaScript 平台。
+
