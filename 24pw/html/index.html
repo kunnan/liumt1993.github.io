@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>关注“心”世界</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="keywords" content="24小时公益,腾讯公益">
+    <meta name="description" content="24小时创益比赛">
+    <meta name="apple-mobile-web-app-capable" content="no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" data-href="../css/style-index.3bc59add.css">
+<script>function webpsupport(a){var c=window.localStorage;if(typeof a!="function"){a=function(){}}if(c!=undefined&&c._tmtwebp!=undefined&&c._tmtwebp==0){a();return false}else{if(c!=undefined&&c._tmtwebp!=undefined&&c._tmtwebp==1){a(1);return true}else{var f=new Image();f.onload=f.onerror=function(){if(f.height!=2){if(c!=undefined){c._tmtwebp=0}a();return false}else{if(c!=undefined){c._tmtwebp=1}a(1);return true}};f.src="data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA"}}};;(function(){function b(t){var f=document.getElementsByTagName("link");for(var e=0,d=f.length;e<d;e++){if(t){f[e].href=f[e].getAttribute("data-href").replace(".css",".webp.css");}else{f[e].href=f[e].getAttribute("data-href")}}}webpsupport(b);})();</script><script>window.imgMap = {"btys1.0b193bd8.jpg":1,"btys2.0b193bd8.jpg":1,"btys3.0b193bd8.jpg":1,"btys4.0b193bd8.jpg":1}</script>
+
+<body>
+    <div class="wrap">
+        <section class="screen screen1">
+            <p class="rem-test">1</p>
+        </section>
+        <section class="screen screen2">
+            2
+        </section>
+        <section class="screen screen3">
+            3
+        </section>
+        <section class="screen screen4">
+            4
+        </section>
+        <section class="screen screen5">
+            5
+        </section>
+        <section class="screen screen6">
+            6
+        </section>
+        <section class="screen screen7">
+            7
+        </section>
+        <section class="screen screen8">
+            8
+        </section>
+        <section class="screen screen9">
+            9
+        </section>
+        <section class="screen screen10">
+            <p>生活中我们经常遇见心理上的困境，当你遇到时请正视并及时给予鼓励。</p>
+        </section>
+        <section class="screen screen11">
+        	11
+        </section>
+        <section class="screen screen12">
+        	<p>关注腾讯公益，关注心世界</p>
+        	<div class="txgy-qrcode">
+        		
+        	</div>
+        </section>
+    </div>
+    <script src="../js/wxmoment.min.0d128a4f.js"></script>
+    <script>
+    var basePath = "../"
+
+    var loader = new WxMoment.Loader();
+
+    //声明资源文件列表
+    var fileList = ['img/btys1.0b193bd8.jpg', 'img/btys2.0b193bd8.jpg', 'img/btys3.0b193bd8.jpg', 'img/btys4.0b193bd8.jpg'];
+
+    for (var i = 0; i < fileList.length; i++) {
+        loader.addImage(basePath + fileList[i]);
+    }
+
+    //进度监听
+    loader.addProgressListener(function(e) {
+        var percent = Math.round((e.completedCount / e.totalCount) * 100);
+        console.log("当前加载了", percent, "%");
+        //在这里做 Loading 页面中百分比的显示
+    });
+
+    //加载完成
+    loader.addCompletionListener(function() {
+        //可以在这里隐藏 Loading 页面开始进入主内容页面
+    });
+
+    //启动加载
+    loader.start();
+
+    new WxMoment.OrientationTip();
+
+    var pageSlider = new WxMoment.PageSlider({
+        pages: $('.screen')
+    });
+    </script>
+</body>
+
+</html>
