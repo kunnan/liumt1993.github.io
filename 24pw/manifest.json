@@ -1,6 +1,5 @@
 {
-  "css/style-index.css": "css/style-index.565a15d0.css",
-  "js/wxmoment.min.js": "js/wxmoment.min.0d128a4f.js",
+  "css/style-index.css": "css/style-index.e5df29d9.css",
   "html/index.html": "html/index.html",
   "img/99gy.png": "img/99gy.8f43e0ee.png",
   "img/falling-c.png": "img/falling-c.d8b371b6.png",
@@ -28,5 +27,6 @@
   "img/pro2.jpg": "img/pro2.ab851b01.jpg",
   "img/pro3.jpg": "img/pro3.730dd8d9.jpg",
   "img/pro4.jpg": "img/pro4.bf163322.jpg",
-  "img/txgy-qrcode.jpg": "img/txgy-qrcode.667ce1bc.jpg"
+  "img/txgy-qrcode.jpg": "img/txgy-qrcode.667ce1bc.jpg",
+  "js/wxmoment.min.js": "js/wxmoment.min.0d128a4f.js"
 }
