@@ -7,8 +7,8 @@
 
 # Site settings
 title: 暮庭
-email: liumt1993@gmail.com
-description: > # this means to ignore newlines until "baseurl:"
+keywords: Web Devloper,FrontEnd,前端,liumt1993,暮庭
+description: "暮庭"
 baseurl: "" # the subpath of your site, e.g. /blog
 
 # Build settings
