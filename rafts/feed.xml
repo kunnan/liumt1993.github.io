@@ -1,0 +1,954 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>暮庭</title>
+    <description>暮庭</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 12 Sep 2017 19:50:41 +0800</pubDate>
+    <lastBuildDate>Tue, 12 Sep 2017 19:50:41 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.1</generator>
+    
+      <item>
+        <title>《Javascript语言精粹》笔记</title>
+        <description>&lt;h2 id=&quot;前言&quot;&gt;前言：&lt;/h2&gt;
+
+&lt;p&gt;我细看了这本书的前几章，并且详细记录和扩展了相关的知识点。往后的一些章节，有一部分是我已经熟知的，有一部分是比较老旧的，所以就没再进行详细阅读和记录。&lt;/p&gt;
+
+&lt;h2 id=&quot;1语法&quot;&gt;1、语法&lt;/h2&gt;
+
+&lt;h3 id=&quot;whitespace&quot;&gt;whitespace&lt;/h3&gt;
+
+&lt;p&gt;whitespace通常没有意义，有时候需要用来分隔字符序列，例如：var a = 1，中的标识符var和a中间的空格。&lt;/p&gt;
+
+&lt;h3 id=&quot;注释&quot;&gt;注释&lt;/h3&gt;
+
+&lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;//&lt;/code&gt;来注释相对于用&lt;code class=&quot;highlighter-rouge&quot;&gt;/* */&lt;/code&gt;来注释会更安全，因为可能会与正则表达式中的&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;一起产生问题。&lt;/p&gt;
+
+&lt;p&gt;个人觉得&lt;code class=&quot;highlighter-rouge&quot;&gt;/* */&lt;/code&gt;这种方式分割区块会更清晰，而&lt;code class=&quot;highlighter-rouge&quot;&gt;//&lt;/code&gt;专门用于句注释会更方便。&lt;/p&gt;
+
+&lt;h3 id=&quot;标识符&quot;&gt;标识符&lt;/h3&gt;
+
+&lt;p&gt;标识符被用于语句、变量、参数、属性名、运算符和标记(例如for循环标记)。不能使用JS的保留字命名变量、参数，使用点运算符来提取对象属性时，对象属性也不能用作保留字，不过使用&lt;code class=&quot;highlighter-rouge&quot;&gt;object[property]&lt;/code&gt;提取时是可以的。&lt;/p&gt;
+
+&lt;h3 id=&quot;数字&quot;&gt;数字&lt;/h3&gt;
+
+&lt;p&gt;JS 只有一种数字类型，基于 IEEE 754 标准的双精度64位二进制格式的值。由于 JS 没有分离出整数类型，所有在 JS 中 &lt;code class=&quot;highlighter-rouge&quot;&gt;1 === 1.0&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;NaN 是一个数值，它标识一个不能产生正常结果的结果。NaN 不等于任何值，甚至是它自己。&lt;/p&gt;
+
+&lt;h3 id=&quot;字符串&quot;&gt;字符串&lt;/h3&gt;
+
+&lt;p&gt;JS中的字符串被包在一堆&lt;code class=&quot;highlighter-rouge&quot;&gt;''&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;&quot;&lt;/code&gt;当中，可以包含0到多个字符。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;\&lt;/code&gt;反斜线符号是转义字符。&lt;code class=&quot;highlighter-rouge&quot;&gt;\&lt;/code&gt;转义符用来转义一些不允许被直接插入到字符串中的字符，比如&lt;code class=&quot;highlighter-rouge&quot;&gt;/&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;'&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;&lt;/code&gt;、制表符等。&lt;/p&gt;
+
+&lt;h3 id=&quot;语句&quot;&gt;语句&lt;/h3&gt;
+
+&lt;p&gt;语句：一段可执行的代码，并且不总有值&lt;/p&gt;
+
+&lt;p&gt;在 WEB 浏览器中，每个&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&lt;/code&gt;标签都会提供一个被编译且立即执行的编译单元。一个编译单元包含一组可执行的语句。&lt;/p&gt;
+
+&lt;p&gt;编译单元就像是一个积木，通常用“链接器”来让他们一个个堆起来。但是在JS中缺少“链接器”，所以JS选择把所有编译单元都抛到一个公共的全局空间中，以达到“链接器”的效果。&lt;/p&gt;
+
+&lt;p&gt;JS语句通常是从上至下运行的。可以通过条件语句&lt;code class=&quot;highlighter-rouge&quot;&gt;if&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;switch&lt;/code&gt; 、循环语句 &lt;code class=&quot;highlighter-rouge&quot;&gt;while&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;do&lt;/code&gt; 、 强制跳转语句 &lt;code class=&quot;highlighter-rouge&quot;&gt;break&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;throw&lt;/code&gt; 和函数调用来改变执行序列。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;while (expression) {block}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;do {blcok} while(expression);&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;for (initalization;condition;increment) {block}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;for (prop in property){block}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;while&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;do&lt;/code&gt;的区别是，&lt;code class=&quot;highlighter-rouge&quot;&gt;while&lt;/code&gt;语句可能一次都不会执行，而&lt;code class=&quot;highlighter-rouge&quot;&gt;do&lt;/code&gt;至少会执行一次。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;for in&lt;/code&gt;语句可以用来枚举对象的属性。&lt;/p&gt;
+
+&lt;p&gt;JS不允许在&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt;与表达式之间换行、不允许在&lt;code class=&quot;highlighter-rouge&quot;&gt;break&lt;/code&gt;和标签之间换行。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;try {block} catch(name) {block}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;throw(expression)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;throw&lt;/code&gt;语句可以抛出一个异常，如果&lt;code class=&quot;highlighter-rouge&quot;&gt;throw&lt;/code&gt;语句在函数中使用，则该函数调用会被放弃，控制流跳转到调用该函数的try语句的catch语句中。&lt;/p&gt;
+
+&lt;h3 id=&quot;表达式&quot;&gt;表达式&lt;/h3&gt;
+
+&lt;p&gt;表达式：可以被求值的代码，并且总有结果&lt;/p&gt;
+
+&lt;p&gt;字符串、数字、变量、内置值、以&lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt;开头调用表达式、以&lt;code class=&quot;highlighter-rouge&quot;&gt;delete&lt;/code&gt;开头的属性提取表达式、包在圆括号中的表达式、以一个前置运算符为前导的表达式…&lt;/p&gt;
+
+&lt;p&gt;JS中的表达式和运算符&lt;/p&gt;
+
+&lt;h4 id=&quot;基本关键字和常用表达式&quot;&gt;基本关键字和常用表达式&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt;： 指向函数的执行上下文。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;fuction&lt;/code&gt;：&lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt; 关键字定义了函数表达式。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;class&lt;/code&gt;：&lt;code class=&quot;highlighter-rouge&quot;&gt;class&lt;/code&gt; 关键字定义了类表达式。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;function*&lt;/code&gt;：function* 关键字定义了一个 generator 函数表达式。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; yield&lt;/code&gt;：暂停和恢复 generator 函数。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;yield*&lt;/code&gt;：委派给另外一个generator函数或可迭代的对象。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;[]&lt;/code&gt;：数组字面量语法。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;：对象字面量语法。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/ab+c/i&lt;/code&gt;：正则字面量语法。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt;：用来控制表达式中的运算优先级，括号中表达式会求值并被返回。&lt;/p&gt;
+
+&lt;h4 id=&quot;left-hand-side-表达式&quot;&gt;Left-hand-side 表达式&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt;： 创建对象的实例，&lt;code class=&quot;highlighter-rouge&quot;&gt;new constructor[([arguments])]&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;super&lt;/code&gt;： 调用父类的构造器。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;[]&lt;/code&gt;： 访问对象属性或方法。&lt;/p&gt;
+
+&lt;p&gt;注：当我们提及一个对象的属性时，会对属性和方法之间做个对比。然而，属性和方法之间的区别并不大。一个方法就是一个可以被调用的属性而已。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; ...obj&lt;/code&gt;：展开运算符可以将一个可迭代的对象在函数调用的位置展开成为多个参数,或者在数组字面量中展开成多个数组元素。&lt;/p&gt;
+
+&lt;h4 id=&quot;自增和自减运算符&quot;&gt;自增和自减运算符&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A++&lt;/code&gt;：后置自增运算符，在递增前返回数值。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;++A&lt;/code&gt;：前置自增运算符，在递增后返回数值。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A--&lt;/code&gt;：后置自减运算符，在递减前返回数值。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--A&lt;/code&gt;：前置自减运算符，在递减后返回数值。&lt;/p&gt;
+
+&lt;h4 id=&quot;一元运算符&quot;&gt;一元运算符&lt;/h4&gt;
+
+&lt;p&gt;一元运算符：只对一个表达式执行操作。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;delete&lt;/code&gt;： 删除对象的属性。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;void&lt;/code&gt;：对表达式进行求值，然后返回&lt;code class=&quot;highlighter-rouge&quot;&gt;undefined&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;typeof&lt;/code&gt;： 判断对象类型。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;： 一元加运算符，将操作值转换为数值，用这个符号可以转换非数值类型为数值。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;：一元减操作符，将操作值转换为Number类型并取反。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;~&lt;/code&gt;：按位非操作符，对任一数值x进行按位非操作的结果为-(x + 1)，~5 的结果是 -6，和&lt;code class=&quot;highlighter-rouge&quot;&gt;indexOf&lt;/code&gt;一起使用&lt;code class=&quot;highlighter-rouge&quot;&gt;~str.indexOf(searchFor)&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;!&lt;/code&gt;：逻辑非运算符&lt;/p&gt;
+
+&lt;h4 id=&quot;算数运算符&quot;&gt;算数运算符&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;/&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;%&lt;/code&gt;：加、减、乘、除、取模，加可以用于字符串拼接。&lt;/p&gt;
+
+&lt;h4 id=&quot;关系运算符&quot;&gt;关系运算符&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;in&lt;/code&gt;：判断对象是否用用给定属性。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;instanceof&lt;/code&gt;：判断一个对象是否是另一个对象的实例。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;=&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;=&lt;/code&gt;：小于、大于、小于等于、大于等于。&lt;/p&gt;
+
+&lt;h4 id=&quot;逗号操作符&quot;&gt;逗号操作符&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;,&lt;/code&gt;：对它的每个操作数求值（从左到右），并返回最后一个操作数的值。&lt;code class=&quot;highlighter-rouge&quot;&gt;var&lt;/code&gt;语句中的逗号并不是逗号操作符，它是&lt;code class=&quot;highlighter-rouge&quot;&gt;var&lt;/code&gt;语句中的一个特殊符号，用于把多个变量声明结合成一个。&lt;/p&gt;
+
+&lt;h3 id=&quot;字面量&quot;&gt;字面量&lt;/h3&gt;
+
+&lt;p&gt;字面量是由语法表达式定义的常量&lt;/p&gt;
+
+&lt;p&gt;在JS中有各种字面量，这些字面量都是按字面意思给出的固定的值，而不是变量。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;数组字面量&lt;/p&gt;
+
+    &lt;p&gt;数组字面量是一对方括号中包裹着0或多个表达式的列表。当你使用数组字面量创建数组时，数组会以被指定的值作为数组元素进行初始化，而长度就是元素的个数。&lt;/p&gt;
+
+    &lt;p&gt;数组字面量同时也是一个数组对象初始化器，对象初始化器还包括&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;对象字面量&lt;/p&gt;
+
+    &lt;p&gt;对象字面量使用&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;来表示，花括号中可以写如0或多个“属性:值”对。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;正则字面量&lt;/p&gt;
+
+    &lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;/abc+c/&lt;/code&gt;双斜杠来表示&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;整数字面量&lt;/p&gt;
+
+    &lt;p&gt;整数可以用十进制、十六进制、八进制、二进制表示&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;浮点数字面量&lt;/p&gt;
+
+    &lt;p&gt;浮点数语法：&lt;code class=&quot;highlighter-rouge&quot;&gt;[(+|-)][digits][.digits][(E|e)[(+|-)]digits]&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;布尔值字面量&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;字符串字面量&lt;/p&gt;
+
+    &lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;''&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;&quot;&lt;/code&gt;包裹0或多个字符，字符被限定在同种引号之间。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;2对象&quot;&gt;2、对象&lt;/h2&gt;
+
+&lt;p&gt;JS中的对象是可变的键控集合（这是什么意思？）。&lt;/p&gt;
+
+&lt;p&gt;两个独立声明的对象永远不会相等，即使他们拥有相同的属性。&lt;/p&gt;
+
+&lt;p&gt;JS中创建对象的方法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;对象字面量&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;
+  可以方便的创建对象，这是后面出现的一种更简便的方法。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;构造函数
+  可以定义对象的类型，需要通过&lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt;关键字来创建对象&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.create()&lt;/code&gt;
+  语法：&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.create(proto, [ propertiesObject ])&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;原型&quot;&gt;原型&lt;/h3&gt;
+
+&lt;p&gt;每个对象都会链接到一个原型对象，并从原型对象中继承属性。&lt;/p&gt;
+
+&lt;p&gt;所有通过对象字面量创建的对象的原型都指向&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.prototype&lt;/code&gt;，它是JS中的基础对象。&lt;/p&gt;
+
+&lt;p&gt;原形链在更新的时候是不起作用的，当我们修改某个对象时，不会触及该对象的原型。原形链只有在检索的时候才会被用到，当对象中没有属性名的时候，会顺着原型链像上检索，直到查到&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.prototype&lt;/code&gt;为止，如果还是没有就会返回&lt;code class=&quot;highlighter-rouge&quot;&gt;undefined&lt;/code&gt;。这个过程称之为&lt;b&gt;委托&lt;/b&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;删除&quot;&gt;删除&lt;/h3&gt;
+
+&lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;delete&lt;/code&gt;可以帮助你删除对象的属性&lt;/p&gt;
+
+&lt;h2 id=&quot;3函数&quot;&gt;3、函数&lt;/h2&gt;
+
+&lt;p&gt;函数包含一组语句，它们是JS的基础模块单元，用于代码复用、信息隐藏和组合调用。函数用于指定对象的行为。一般来说，所谓编程，就是将一组需求分解成一组函数与数据结构的技能。&lt;/p&gt;
+
+&lt;p&gt;JS中函数就是对象。&lt;/p&gt;
+
+&lt;p&gt;对象是“名/值”对的集合并拥有一个连到原型对象的隐藏连接。&lt;/p&gt;
+
+&lt;p&gt;字面量对象连接到&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.prototype&lt;/code&gt;’&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt; –&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Object.prototype&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;函数对象连接到&lt;code class=&quot;highlighter-rouge&quot;&gt;Function.prototype&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;function foo(){}&lt;/code&gt; –&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Function.prototype&lt;/code&gt; –&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Object.prototype&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;闭包：通过函数字面量创建的函数对象包含一个连接到外部上下文的连接，这被称为闭包。&lt;/p&gt;
+
+&lt;h3 id=&quot;this在不同调用方式中的表现&quot;&gt;this在不同调用方式中的表现&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;方法调用模式
+  当以函数被保存为对象的属性时，我们称之为方法。当方法被调用时，&lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt;指向的是该对象。&lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt;到对象的绑定发生在方法被调用的时候。通过&lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt;能够访问对象上下文的方法，称之为公共方法。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;函数调用模式
+  函数如果不是对象的属性，就会被当作函数来调用。被当作函数调用的时候，&lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt;默认指向全局对象。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;构造器调用模式
+  一个函数如果结合&lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt;来使用，那就是&lt;b&gt;构造器函数&lt;/b&gt;。
+  JS是一门基于&lt;b&gt;原形继承&lt;/b&gt;的语言，而大多数面相对象语言都是基于&lt;b&gt;类&lt;/b&gt;的语言。
+  而构造函数中的&lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt;，在通过&lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt;调用后，会创建一个连接到该函数的&lt;code class=&quot;highlighter-rouge&quot;&gt;prototype&lt;/code&gt;成员的新对象（实例化对象），&lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt;则会绑定在这个对象上。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt;调用模式
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt;可以动态的改变&lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt;的指向，它是函数对象的一个方法。&lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt;可以接收两个参数，第一个就是要绑定的this的值，第二个就是一个参数数组。与其十分相似的方法是&lt;code class=&quot;highlighter-rouge&quot;&gt;call&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;call&lt;/code&gt;与&lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt;唯一的不同是传入参数的方式。&lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt;是传入参数数组，而&lt;code class=&quot;highlighter-rouge&quot;&gt;call&lt;/code&gt;是依次传入参数用逗号分割。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;参数&quot;&gt;参数&lt;/h3&gt;
+
+&lt;p&gt;当函数被调用时，函数会被默认分配一个&lt;code class=&quot;highlighter-rouge&quot;&gt;arguments&lt;/code&gt;参数，通过这个参数我们可以有序访问被传入到函数中的参数。&lt;code class=&quot;highlighter-rouge&quot;&gt;arguments&lt;/code&gt;是一个类似数组的对象，拥有&lt;code class=&quot;highlighter-rouge&quot;&gt;length&lt;/code&gt;属性，但却没有数组的方法，不过可以把&lt;code class=&quot;highlighter-rouge&quot;&gt;arguments&lt;/code&gt;转换为真正的数组。&lt;/p&gt;
+
+&lt;h3 id=&quot;返回&quot;&gt;返回&lt;/h3&gt;
+
+&lt;p&gt;函数在执行时，如果指定了&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt;，则会返回执行的结果。如果没有指定&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt;，则默认返回&lt;code class=&quot;highlighter-rouge&quot;&gt;undefined&lt;/code&gt;。当使用&lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt;调用函数时，如果没有指定&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt;，默认返回&lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt;，即&lt;code class=&quot;highlighter-rouge&quot;&gt;this&lt;/code&gt;指向的对象。&lt;/p&gt;
+
+&lt;h3 id=&quot;扩充类型的功能&quot;&gt;扩充类型的功能&lt;/h3&gt;
+
+&lt;p&gt;因为JS是基于&lt;b&gt;原型继承&lt;/b&gt;，所以我们可以通过给原型对象添加方法来扩充其的功能。&lt;/p&gt;
+
+&lt;h3 id=&quot;递归&quot;&gt;递归&lt;/h3&gt;
+
+&lt;p&gt;把一个问题分解成一组相似的子问题，每一个都用一个寻常解去解决。&lt;/p&gt;
+
+&lt;h3 id=&quot;作用域&quot;&gt;作用域&lt;/h3&gt;
+
+&lt;p&gt;作用域控制着变量与参数的可见性与声明周期。在很多语言中都拥有块级作用域，在块级作用域中定义的变量在代码块外是不可见的。并且在代码块结束后，代码块中变量会被释放。&lt;/p&gt;
+
+&lt;p&gt;而在JS中，没有块级作用域这个概念。JS中只有函数作用域这个概念。&lt;/p&gt;
+
+&lt;h3 id=&quot;闭包&quot;&gt;闭包&lt;/h3&gt;
+
+&lt;p&gt;闭包是指这样的作用域，它包含一个函数，这个函数可以调用被这个作用域封闭的变量、函数、闭包等内容。通常我们通过闭包所对应的函数来获得对闭包的访问。&lt;/p&gt;
+
+&lt;h3 id=&quot;回调&quot;&gt;回调&lt;/h3&gt;
+
+&lt;p&gt;回调是把一个函数当作另一个函数的参数进行调用，当外部函数执行完毕时再执行被当作参数传递的内部函数，这个过程就是回调。被当作参数的函数就是回调函数。&lt;/p&gt;
+
+&lt;h3 id=&quot;模块&quot;&gt;模块&lt;/h3&gt;
+
+&lt;p&gt;模块是一个提供接口却隐藏状态与实现的函数或对象。&lt;/p&gt;
+
+&lt;p&gt;模块模式一般形式是：一个定义了私有变量和函数的函数；利用闭包创建可以访问私有变量和函数的特权函数；最后返回这个特权函数，或者把它们保存到一个可以访问到的地方。&lt;/p&gt;
+
+&lt;p&gt;模板方法通常结合单例模式使用。JS的单例就是用对象字面量创建对象，并且对象的属性在生命周期中不会发生变化。它通常作为工具为程序其他部分提供功能支持。&lt;/p&gt;
+
+&lt;p&gt;模块也能用来产生安全的对象，在闭包作用域中写入私有变量，再通过闭包函数返回出去。这样除了访问返回的方法，是无法用其他方式改变私有变量的。&lt;/p&gt;
+
+&lt;h3 id=&quot;级联&quot;&gt;级联&lt;/h3&gt;
+
+&lt;p&gt;在对象的方法中返回this，这样能达到方法级联运行&lt;code class=&quot;highlighter-rouge&quot;&gt;object.do1().do2().do3()&lt;/code&gt;的效果。&lt;/p&gt;
+
+&lt;h3 id=&quot;柯里化&quot;&gt;柯里化&lt;/h3&gt;
+
+&lt;p&gt;柯里化允许我们把函数与传递给它的参数相结合，产生一个新的函数。把多参数函数转换为一系列单参数函数并进行调用的技术。&lt;/p&gt;
+
+&lt;h3 id=&quot;记忆&quot;&gt;记忆&lt;/h3&gt;
+
+&lt;p&gt;不要重复计算已经得到的结果，把已计算过的结果缓存起来。&lt;/p&gt;
+
+&lt;h2 id=&quot;4继承&quot;&gt;4、继承&lt;/h2&gt;
+
+&lt;h3 id=&quot;伪类&quot;&gt;伪类&lt;/h3&gt;
+
+&lt;p&gt;在其他基于类的语言中，对象是类的实例，并且类可以从另一个类继承。JS是一门基于原型的语言，这意味着对象直接从其他对象继承。&lt;/p&gt;
+
+&lt;p&gt;因为JS语言没有提供一种方法去确定哪个函数是打算用来做构造器的，所有每个函数都有&lt;code class=&quot;highlighter-rouge&quot;&gt;prototype&lt;/code&gt;对象。&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 01 Aug 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/javascript/2017/08/01/javascript-the-good-parts-note.html</link>
+        <guid isPermaLink="true">http://localhost:4000/javascript/2017/08/01/javascript-the-good-parts-note.html</guid>
+        
+        
+        <category>javascript</category>
+        
+      </item>
+    
+      <item>
+        <title>《Javascript高级程序设计》笔记</title>
+        <description>&lt;h2 id=&quot;前言&quot;&gt;前言：&lt;/h2&gt;
+
+&lt;p&gt;这本书前后看了两遍。&lt;/p&gt;
+
+&lt;p&gt;第一遍是2015年，粗略看了二分之一，后面看得头脑发懵，就没再看了。整本书就记住了几个名词，甚至连这几个名词的简意都模糊得很。&lt;/p&gt;
+
+&lt;p&gt;第二遍是2017年，这次细细看了一遍，有种漏洞被填满的感觉，虽然理解不十分透彻，但是基本概念都有了。这里再做一遍笔记，第一是加深印象，第二是往后方便回顾。&lt;/p&gt;
+
+&lt;p&gt;笔记的内容大部分是摘抄原书，小部分是我自己的理解释义，以及我找的相关补充的知识点。&lt;/p&gt;
+
+&lt;h2 id=&quot;第一章-javasscript简介&quot;&gt;第一章 JavasScript简介&lt;/h2&gt;
+
+&lt;p&gt;ECMA：European Computer Manufacturer’s Asspciation 欧洲计算机制造商协会。&lt;/p&gt;
+
+&lt;p&gt;W3C：World Wide Web Consortium 万维网联盟，这个联盟指定了浏览器的DOM、BOM标准。&lt;/p&gt;
+
+&lt;p&gt;Javascript（以下简称JS）本来叫LiveScript，由Netscape公司的布兰登·艾奇开发，为了搭上媒体热炒的Java的顺风车，临时把名字改成了JS。&lt;/p&gt;
+
+&lt;p&gt;1997年，ECMA协会为了解决两种不同JS版本并存的局面，制定了ECMAScript（以下简称ES）脚本语言标准ECMA-262。&lt;/p&gt;
+
+&lt;p&gt;ECMA-262是ECMAScript的规范。&lt;/p&gt;
+
+&lt;p&gt;ES是JS的标准。&lt;/p&gt;
+
+&lt;p&gt;Web浏览器只是ES的宿主环境之一，其他宿主包括Node、ActionScript。&lt;/p&gt;
+
+&lt;p&gt;DOM和BOM是ES在Web浏览器中的扩展。&lt;/p&gt;
+
+&lt;p&gt;DOM是针对XML但经过扩展用于HTML的API，提供访问和操作网页的方法和接口。&lt;/p&gt;
+
+&lt;p&gt;BOM提供了和浏览器交互的接口。&lt;/p&gt;
+
+&lt;p&gt;ES规定了：语法、类型、语句、关键字、保留字、操作符、对象。&lt;/p&gt;
+
+&lt;p&gt;浏览器中的JS包括ES、DOM、BOM。&lt;/p&gt;
+
+&lt;h2 id=&quot;第二章-在html中使用js&quot;&gt;第二章 在HTML中使用JS&lt;/h2&gt;
+
+&lt;p&gt;同步加载和异步加载：以&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script sync&amp;gt;&lt;/code&gt;为例，如果没有&lt;code class=&quot;highlighter-rouge&quot;&gt;sync&lt;/code&gt;属性，JS脚本是和网页其他内容一起同步加载的，同步加载的问题是如果JS文件很大，会阻塞后面内容的加载，所以我们通常把JS放在页脚避免阻塞HTML的加载。而加载&lt;code class=&quot;highlighter-rouge&quot;&gt;sync&lt;/code&gt;属性，就表示脚本可以异步加载。这里的异步和现实中的“同步”（A和B都在18：30下班，可以说他们是同步下班的）很像，表示多个线程分别在运行。这时一个线程在加载JS文件，一个线程继续加载其他内容，两边“同时”加载，就是异步加载。&lt;code class=&quot;highlighter-rouge&quot;&gt;sync&lt;/code&gt;的译为中文也是“同步”的意思。&lt;/p&gt;
+
+&lt;p&gt;经常看到很多网页把JS代码直接内联在HTML中，为什么这么做？
+	在初学前端的时候就会被告知，不要随意写行内和内联代码，因为很难维护。
+但随着模块化和打包工具的出现，让这种方式成为一种选择。
+内联JS代码的好处：
+1.减少http请求
+2.在特定情况下让内嵌的js代码优先执行&lt;/p&gt;
+
+&lt;h2 id=&quot;第三章-基本概念&quot;&gt;第三章 基本概念&lt;/h2&gt;
+
+&lt;p&gt;如果没有其他语言学习经验，在学习JS语法时，要多花很多功夫。&lt;/p&gt;
+
+&lt;p&gt;标识符：变量、函数、属性的名字。&lt;/p&gt;
+
+&lt;p&gt;‘use strict’是一个编译指示，告诉支持JS的引擎切换到严格模式。&lt;/p&gt;
+
+&lt;p&gt;以可维护性为标准来衡量&lt;code class=&quot;highlighter-rouge&quot;&gt;;&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;在JS中的使用。&lt;/p&gt;
+
+&lt;h3 id=&quot;基本数据类型&quot;&gt;基本数据类型&lt;/h3&gt;
+
+&lt;p&gt;ES中有5种基础数据类型：&lt;code class=&quot;highlighter-rouge&quot;&gt;undefined&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;boolean&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;number&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;string&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;ES中有1种复杂数据类型：&lt;code class=&quot;highlighter-rouge&quot;&gt;object&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;Object的本质是由一组无序名值对组成的数据。&lt;/p&gt;
+
+&lt;p&gt;可以使用操作符typeof来变量的类型。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;typeof null&lt;/code&gt; 会返回&lt;code class=&quot;highlighter-rouge&quot;&gt;object&lt;/code&gt;，是因为特殊值null被认为是一个空对象的引用。&lt;/p&gt;
+
+&lt;p&gt;如果定义的变量是用来保存对象的，最好将变量初始化为null，这样后面就可以判断是否为null来确认变量是否已经保存了一个对象的引用。&lt;/p&gt;
+
+&lt;p&gt;实际上undefined是由null派生出来的，所以undefined == null //true，但在技术上他们在ES中的类型是不一样的，所以undefined === null //false。&lt;/p&gt;
+
+&lt;h3 id=&quot;number&quot;&gt;Number&lt;/h3&gt;
+
+&lt;p&gt;保存浮点数值所需内存是整数值的两倍，所以ES会不失时机地将浮点数转换为整数。&lt;/p&gt;
+
+&lt;p&gt;对于极大和极小的数字可以用e来表示，比如31250000 === 3.125e7，0.0000003 === 3e-7&lt;/p&gt;
+
+&lt;p&gt;JS中浮点数的最高精度是17位小数，但在算数计算时其精确度远远不如证书，基于IEEE754数值的浮点计算通病，会发现0.1+0.2的结果是0.30000000000000004，由于这个误差而无法测试特定的浮点数，所以永远不要测试某个特定的浮点数值。&lt;/p&gt;
+
+&lt;p&gt;NaN（Not a Number），这个特殊数值用来表示本应该返回数值的操作数没有返回数值的情况。&lt;/p&gt;
+
+&lt;p&gt;为了避免出现意外，指定parseInt()的第二个参数（进制数）非常有必要。&lt;/p&gt;
+
+&lt;p&gt;parseFloat()只解析十进制数，其他进制的数都会被转换成0。&lt;/p&gt;
+
+&lt;p&gt;ES中的对象其实就是一组数据和功能的集合。&lt;/p&gt;
+
+&lt;h3 id=&quot;object&quot;&gt;Object&lt;/h3&gt;
+
+&lt;p&gt;Object类型是所有它的实例的基础，所具有的属性和方法同样存在于更具体的对象中。&lt;/p&gt;
+
+&lt;p&gt;Object每个实例都具有下列属性和方法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;constructor：保存着用户创建当前对象的函数。对于Object而言，构造函数就是Object()。&lt;/li&gt;
+  &lt;li&gt;hasOwnProperty(propertyName)：用于检查给定的属性当前对象实例中（不是在实例的原型中）是否存在。propertyName必须是是字符串。&lt;/li&gt;
+  &lt;li&gt;isPrototypeOf(object)：用于检查传入的对象是否是当前对象的原型。&lt;/li&gt;
+  &lt;li&gt;propertyIsEnumerable(propertyName)：用户检查给定的属性是否能够使用for-in语句枚举。propertyName必须是是字符串。&lt;/li&gt;
+  &lt;li&gt;toLocaleString()：返回对象的字符串标识，该字符串与执行环境的地区对应。&lt;/li&gt;
+  &lt;li&gt;toString()：返回对象的字符串表示。&lt;/li&gt;
+  &lt;li&gt;valueOf()：返回对象的字符串、数值或布尔值表示。通常与toSrting()方法的返回值相同。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;操作符&quot;&gt;操作符&lt;/h3&gt;
+
+&lt;p&gt;一元操作符：只能操作一个值的操作符&lt;/p&gt;
+
+&lt;p&gt;递增和递减操作符，又分前置和后置。执行前置递增和递减时，变量的值都是在语句被求值以前改变（副作用）。后置递增和递减是在包含它们的语句被求值之后才执行的。&lt;/p&gt;
+
+&lt;h3 id=&quot;循环语句&quot;&gt;循环语句&lt;/h3&gt;
+
+&lt;p&gt;do-while语句是一种后测试循环语句，只有在循环体中的代码执行之后，才会测试出口条件。所以do-while至少会执行一次。&lt;/p&gt;
+
+&lt;p&gt;while语句属于前测试循环语句，在循环体内的代码被执行之前，就会对出口条件求值。所以循环体内的代码可能永远都不会执行。&lt;/p&gt;
+
+&lt;p&gt;for(initalizaption;expression;post-loop-expression) statement（初始化表达式、控制表达式、循环后表达式）都是可选的，如果三个表达式都省略，将会创建一个无限循环。&lt;/p&gt;
+
+&lt;p&gt;使用for in语句可以把一个对象的属性全部循环出来，但是碰到null或者undefined就不会执行循环体，所以在循环之前可以检查一下对象的值是不是null或者undefined。&lt;/p&gt;
+
+&lt;p&gt;给for循环增加一个label标记可以使用break和continue语句来控制嵌套for循环的退出。&lt;/p&gt;
+
+&lt;p&gt;switch语句可以在case中传入表达式；switch语句在比较值的时候是使用全等操作符的，所以不会发生类型转换。&lt;/p&gt;
+
+&lt;h3 id=&quot;函数&quot;&gt;函数&lt;/h3&gt;
+
+&lt;p&gt;函数的主要作用是封装程序语句。&lt;/p&gt;
+
+&lt;p&gt;函数参数arguments只是与数组类似然而，然而它并不是数组的实例，只是可以通过方括号访问，用length来计算参数数量。&lt;/p&gt;
+
+&lt;p&gt;没有指定返回值的函数会默认返回一个undefined。&lt;/p&gt;
+
+&lt;p&gt;由于不存在函数签名，ES函数不能重载。（跟其他语言的区别）&lt;/p&gt;
+
+&lt;h2 id=&quot;第四章&quot;&gt;第四章&lt;/h2&gt;
+
+&lt;h3 id=&quot;基本类型和引用类型&quot;&gt;基本类型和引用类型&lt;/h3&gt;
+
+&lt;p&gt;ES变量包含两种不同的数据类型值：基本类型和引用类型。&lt;/p&gt;
+
+&lt;p&gt;基本类型是指简单的数据段（字符串、数值、布尔值、null、undefined），而引用类型只那些可能由多个值构成的对象（数组对象、json对象、自定义对象）。&lt;/p&gt;
+
+&lt;p&gt;引用类型的值是保存在内存中的对象。与其他语言不同，JS不允许直接访问内存中的位置，也就是不能直接操作对象的内存控件。所以我们在JS中复制保存着对象的某个变量时，操作的是对象的引用。但在为对象添加属性时，操作的实际是对象。&lt;/p&gt;
+
+&lt;p&gt;基本类型的变量被复制之后，复制变量和被复制变量是独立的，并不相互依赖。（感觉叫做clone比较合适）&lt;/p&gt;
+
+&lt;p&gt;引用类型的变量被复制之后，同样会将储存在变量对象中值复制一份到为新变量分配的空间中。不同的是，这个值实际上是一个指针，而这个指针指向存储在堆中的一个对象。所以改变其中任一变量，都会相互影响。&lt;/p&gt;
+
+&lt;p&gt;在向参数传递基本类型值时，被传递的值会被复制给arguments对象。在向参数传递引用类型的值时，会把这个值在内存中的地址复制给arguments对象，因此arguments中的对象发生变化会直接反映在函数外部。&lt;/p&gt;
+
+&lt;p&gt;检测引用类型值的类型可以使用instanceof操作符。&lt;/p&gt;
+
+&lt;h3 id=&quot;执行环境和作用域&quot;&gt;执行环境和作用域&lt;/h3&gt;
+
+&lt;p&gt;执行环境定义了变量或函数有权访问的其他数据，决定了它们各自的行为。每个执行环境都有一个与之关联的变量对象，环境中定义的所有变量和函数都保存在这个对象中。虽然我们编写的代码无法访问这个对象，但解析器在处理数据时会在后台使用它。&lt;/p&gt;
+
+&lt;p&gt;每个函数都有自己的执行环境。当执行流进入一个函数时，函数的环境就会被推入到一个环境栈中。而在函数执行完之后，栈将其环境弹出，把控制权返回给之前的执行环境。&lt;/p&gt;
+
+&lt;p&gt;当代码在一个环境中执行时，会创建变量对象的一个作用域链。作用域链的用途，是保证对执行环境有权访问的所有变量和函数的有序访问。作用域链的最前端是当前执行的代码所处的执行环境的变量对象。如果这个环境是函数，则将其活动对象作为变量对象。&lt;/p&gt;
+
+&lt;p&gt;概念区分 ：&lt;/p&gt;
+
+&lt;p&gt;执行环境 - 定义变量或函数的访问权限和行为，分为全局执行环境和函数执行环境。&lt;/p&gt;
+
+&lt;p&gt;变量对象 - 与执行环境关联的对象，保存了变量和函数的对象，但只在后台使用到。&lt;/p&gt;
+
+&lt;p&gt;活动对象 - 环境为函数时，会创建一个对象，这个对象初期只包含arguments对象。&lt;/p&gt;
+
+&lt;p&gt;作用域链  - 代码在环境中执行时，会把有权访问的变量对象串联起来，保证有序访问。&lt;/p&gt;
+
+&lt;p&gt;作用域 - 变量的有效范围。&lt;/p&gt;
+
+&lt;p&gt;this - this对象是在代码运行时基于函数的执行环境绑定的，在全局函数中this===window，而当函数作为某个对象的方法调用时，this===该对象。&lt;/p&gt;
+
+&lt;p&gt;执行上下文：为了管理执行上下文，JS引擎创建了执行上下文栈（Execution context stack，ECS）来管理执行上下文。&lt;/p&gt;
+
+&lt;h3 id=&quot;第五章-引用类型&quot;&gt;第五章 引用类型&lt;/h3&gt;
+
+&lt;h3 id=&quot;object-1&quot;&gt;Object&lt;/h3&gt;
+
+&lt;p&gt;在ES中，引用类型是一种数据结构，用于将数据和功能组织在一起，它和一些面相对象语言里的类很像。&lt;/p&gt;
+
+&lt;p&gt;使用 var o = {} 时实际上不会调用new Object()。&lt;/p&gt;
+
+&lt;h3 id=&quot;array&quot;&gt;Array&lt;/h3&gt;
+
+&lt;p&gt;arr[arr.length] = ‘new item’，利用数组的length可以方便的在数组末尾添加新项。&lt;/p&gt;
+
+&lt;p&gt;Array.isArray()可以方便的检测数组。&lt;/p&gt;
+
+&lt;p&gt;Array.sort()，这是数组自带的排序函数，可以传入两个参数(a,b)进行比较，返回负数则a在b前，返回0则a等于b,返回正则b在a之前。&lt;/p&gt;
+
+&lt;p&gt;Array的某个位置不存在数值时，访问时会返回undefined。&lt;/p&gt;
+
+&lt;p&gt;contact()方法，会先创建一个当前数组的副本然后将接受到的参数添加到副本的末尾，最后返回新数组。&lt;/p&gt;
+
+&lt;p&gt;slice()方法，接受一或两个参数，即要返回项的起始和结束位置，并不会影响原始数组。&lt;/p&gt;
+
+&lt;p&gt;splice()方法支持删除、插入、替换，支持三个参数起始位置、删除数量(可以为0)、插入的项。&lt;/p&gt;
+
+&lt;p&gt;数组有多个迭代方法：
+every()，传入的函数返回值都为true则返回true。
+filter()，返回 传入的函数 返回值为true的项组成的数组。
+forEach()，对每一项都运行传入的函数且没有返回值。
+map()，返回 传入的函数 返回的结果组成的数组。
+some()，传入的函数返回值只要有true，则返回true。&lt;/p&gt;
+
+&lt;p&gt;数组有两个归并方法：
+reduce()、reduceRight()，传入的方法接受四个参数(prev,current,index,array)，reduceRight从相反的方向返回。&lt;/p&gt;
+
+&lt;h3 id=&quot;date&quot;&gt;Date&lt;/h3&gt;
+
+&lt;p&gt;Date.parse()方法可以根据传入的日期字符串返回相应的毫秒数&lt;/p&gt;
+
+&lt;h3 id=&quot;regexp&quot;&gt;RegExp&lt;/h3&gt;
+
+&lt;p&gt;g：全局模式，所有字符串都会被匹配&lt;/p&gt;
+
+&lt;p&gt;i：不区分大小写模式&lt;/p&gt;
+
+&lt;p&gt;m：多行模式&lt;/p&gt;
+
+&lt;p&gt;\：表示下一个字符是特殊的，一般用来转义。&lt;/p&gt;
+
+&lt;p&gt;^：匹配输入的开始，支持m。&lt;/p&gt;
+
+&lt;p&gt;$：匹配输入的结束，支持m。&lt;/p&gt;
+
+&lt;p&gt;*：匹配前一个表达式0次或多次，等价于{0,}。&lt;/p&gt;
+
+&lt;p&gt;+：匹配前一个表达式1次或多次，等价于{1,}。&lt;/p&gt;
+
+&lt;p&gt;?：匹配前一个表达式0或1次，等价于{0,1}。&lt;/p&gt;
+
+&lt;p&gt;.：匹配除换行符之外的任何单个字符。&lt;/p&gt;
+
+&lt;p&gt;(x)：匹配’x’并且记住匹配项，括号被称为捕获括号。&lt;/p&gt;
+
+&lt;p&gt;(?:x)：匹配’x’但不记住匹配项，括号被称为非捕获括号。&lt;/p&gt;
+
+&lt;p&gt;x(?=y)：匹配’x’仅仅当’x’后面跟着’y’，这种叫做正向肯定查找。&lt;/p&gt;
+
+&lt;p&gt;x(?!y)：匹配’x’仅仅当’x’后面不跟着’y’，这种叫做正向否定查找。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;x&lt;/td&gt;
+      &lt;td&gt;y：匹配’x’或者’y’。&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;{n}：n是一个正整数，匹配了前面一个字符刚好发生了n次。&lt;/p&gt;
+
+&lt;p&gt;{n,m}：n和m都是正整数。匹配前面的字符至少n次，最多m次。如果n或m为0，这个值被忽略。&lt;/p&gt;
+
+&lt;p&gt;[xyz]：一个字符集合。匹配方括号中的任意字符，包括转义序列。你可以使用破折号（-）来指定一个字符的范围。对于点（.）和星号（*）这样的特殊符号在一个字符集中没有特殊意义，这意味着你不必对它们进行转义，不过转义后也起作用。&lt;/p&gt;
+
+&lt;p&gt;[^xyz]：一个反向字符集。匹配任何没有包含方括号中的字符。你可以使用破折号（-）来指定一个字符范围。&lt;/p&gt;
+
+&lt;p&gt;[\b]：匹配一个退格（U+008）。&lt;/p&gt;
+
+&lt;p&gt;\b：匹配一个词的边界。&lt;/p&gt;
+
+&lt;p&gt;\B：匹配一个非单词边界。&lt;/p&gt;
+
+&lt;p&gt;\cX：当X是处于A到Z之间的字符的时候，匹配字符串中的一个控制符。&lt;/p&gt;
+
+&lt;p&gt;\d：匹配一个数字。等价于[0-9]。&lt;/p&gt;
+
+&lt;p&gt;\D：匹配一个非数字字符。等价于[^0-9]。&lt;/p&gt;
+
+&lt;p&gt;\f：匹配一个换页符（U+000C）。&lt;/p&gt;
+
+&lt;p&gt;\n：匹配一个换行符（U+000A）。&lt;/p&gt;
+
+&lt;p&gt;\r：匹配一个回车符（U+000D）。&lt;/p&gt;
+
+&lt;p&gt;\s：匹配一个空白字符，包括空格、制表符、换页换行符。等于[ \f\n\r\t\v\u00a0\u1680\u180e\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]。&lt;/p&gt;
+
+&lt;p&gt;\S：匹配一个非空白字符。&lt;/p&gt;
+
+&lt;p&gt;\t：匹配一个水平制表符（U+0009）。&lt;/p&gt;
+
+&lt;p&gt;\v：匹配一个垂直制表符（Y+000B）。&lt;/p&gt;
+
+&lt;p&gt;\w：匹配一个单字字符（字母、数字或者下划线）。&lt;/p&gt;
+
+&lt;p&gt;\W：匹配一个非单字字符。等价于[^A-Za-z)-9_]。&lt;/p&gt;
+
+&lt;p&gt;\n：当n是一个正整数，一个返回引用到最后一个与有n插入的正值表达式匹配的副字符串。&lt;/p&gt;
+
+&lt;h3 id=&quot;function&quot;&gt;Function&lt;/h3&gt;
+
+&lt;p&gt;function 是 Function对象的实例&lt;/p&gt;
+
+&lt;p&gt;Global对象和Math对象是ES中内置的，大多数ES实现中都不能直接访问Gloabl对象。全局变量和函数都是Global对象的属性，在浏览器中window实现了Global对象作用。&lt;/p&gt;
+
+&lt;h3 id=&quot;面向对象的程序设计&quot;&gt;面向对象的程序设计&lt;/h3&gt;
+
+&lt;p&gt;对象是无序键值对属性的集合。&lt;/p&gt;
+
+&lt;p&gt;可以使用Object.defineProperty()来定义对象的getter和setter。&lt;/p&gt;
+
+&lt;p&gt;创建对象的方式：&lt;/p&gt;
+
+&lt;h4 id=&quot;1object构造函数-var-object--new-object&quot;&gt;1、Object构造函数 var object = new Object()&lt;/h4&gt;
+
+&lt;h4 id=&quot;2字面量方式-var-object--&quot;&gt;2、字面量方式 var object = {}&lt;/h4&gt;
+
+&lt;p&gt;这两种方式都有缺点就是，当你需要创建多哥对象时就会产生重复代码。&lt;/p&gt;
+
+&lt;p&gt;例：&lt;/p&gt;
+
+&lt;p&gt;var person = {
+	name:oldliu,
+	age:18
+}&lt;/p&gt;
+
+&lt;p&gt;var person2 = {
+	name:wuyanzu,
+	age:40
+}&lt;/p&gt;
+
+&lt;p&gt;var person3 = {
+	name:xxx,
+	age:50
+}&lt;/p&gt;
+
+&lt;h4 id=&quot;3工厂模式&quot;&gt;3、工厂模式&lt;/h4&gt;
+
+&lt;p&gt;function Factory(prop1,prop2,func1){
+	var obj = new Object()
+	obj.prop1 = prop1;
+	obj.prop1 = prop1;
+	obj.func1 = function(){
+		//do sometthing
+	}
+	return obj;
+}&lt;/p&gt;
+
+&lt;p&gt;当你创建很多同类对象时，就需要用到工厂模式。&lt;/p&gt;
+
+&lt;h4 id=&quot;4构造函数模式&quot;&gt;4、构造函数模式&lt;/h4&gt;
+
+&lt;p&gt;function Construtor(prop1,prop2,func1){
+	this.prop1 = prop1;
+	this.prop2  = prop2;
+	this.func1 = function(){
+		//do something
+	}
+}&lt;/p&gt;
+
+&lt;p&gt;var object = new Construtor(foo,foo,bar);
+var object1 = new Construtor(foo,foo,bar);&lt;/p&gt;
+
+&lt;p&gt;构造函数是利用函数可以创建类型这个特性来创建对象的，属于用户自定义对象，JS中有内置对象如Object、Function。并且构造函数模式是依赖于new 操作符创建对象的，如果不使用new操作符，这就是一个首字母大写的函数而已。&lt;/p&gt;
+
+&lt;p&gt;使用new操作符创建自定义对象时会发生以下几个步骤：
+（1）创建对象
+（2）将构造函数的作用域赋给新对象，这个时候this会指向对象。
+（3）执行构造函数中的代码（为对象添加属性什么的）
+（4）返回新的对象&lt;/p&gt;
+
+&lt;p&gt;而由构造函数创建的对象中会有一个construtor属性，这个属性会指向构造函数。&lt;/p&gt;
+
+&lt;p&gt;构造函数创建的优势是，这种创建方法和创建“类”很像，构造函数可以当成一种标识，也即“类”的名字，这样可以很清晰知道这个对象是从哪儿来的。&lt;/p&gt;
+
+&lt;p&gt;以构造函数创建的对象是定义在Global对象中的，在浏览器也即是window对象。&lt;/p&gt;
+
+&lt;p&gt;构造函数的缺点呢，就是每个方法都会在实例上重新创建一遍。&lt;/p&gt;
+
+&lt;p&gt;因为function实际上是Function的实例，所以在自定义构造函数中添加的方法在每个new出来的实例中都是不同的。
+也即是object.func1 !== object1.func1。
+这样new的实例越多，方法就越多，占用的内存也就越多。&lt;/p&gt;
+
+&lt;h4 id=&quot;5原型模式&quot;&gt;5、原型模式&lt;/h4&gt;
+
+&lt;p&gt;所有我们创建的函数都有一个prototype属性，这个属性包含了调用的构造函数的对象实例的原型对象。&lt;/p&gt;
+
+&lt;p&gt;原型对象的好处是可以让所有实例共享它所包含的属性和方法，换句话说，你可以把所有属性和方法都放进prototype中。&lt;/p&gt;
+
+&lt;p&gt;function Constructor(){}
+Constuctor.prototype.prop1 = prop1;
+Constuctor.prototype.prop2 = prop3;
+Constuctor.prototype.func1 = function(){
+	//do something
+};&lt;/p&gt;
+
+&lt;p&gt;构造函数、原型对象、对象实例之间的关系：
+构造函数有一个属性指向原型对象。
+原型对象有一个属性指向构造函数。
+而new出来的对象实例会包含一个[[prototype]]的指针，这个属性指向构造函数的原型对象，在浏览器中可以通过__proto__访问。
+使用Object.getPrototypeOf()可以访问对象的原型。&lt;/p&gt;
+
+&lt;p&gt;function Constructor(){}
+Constructor.ptototype = {…}
+实际上这句代码等于：Constructor.ptototype = new Object();
+这样就相当于把自定义构造函数的原型的构造函数属性指向了Object，这个你查看Constructor的构造函数也会发现指向的是Object。
+解决方法就是：&lt;/p&gt;
+
+&lt;p&gt;Constructor.ptototype = {
+	constructor:Constructor
+}&lt;/p&gt;
+
+&lt;p&gt;在使用这种字面量写入原型对象时，把构造函数属性也写进去，并且自定义指向函数。&lt;/p&gt;
+
+&lt;h4 id=&quot;6组合构造函数和原型模式&quot;&gt;6、组合构造函数和原型模式&lt;/h4&gt;
+
+&lt;p&gt;所有写入原型对象中的属性都是共享的，这个时候会有一个问题就是当属性的值是引用类型时，就会导致一个实例改变，而其他实例都跟着变。&lt;/p&gt;
+
+&lt;p&gt;而组合使用前面说到的构造函数和原型模式，可以完美解决这个问题。
+function Constructor(name,age){
+	this.name = name;
+	this.age = age;
+}&lt;/p&gt;
+
+&lt;p&gt;Constructor.prototype = {
+	constructor:Constructor,
+	sayName:function(){
+		console.log(this.name);
+	}
+}&lt;/p&gt;
+
+&lt;p&gt;这种方法是使用最普遍的构造对象的方法。&lt;/p&gt;
+
+&lt;h4 id=&quot;7动态原型模式&quot;&gt;7、动态原型模式&lt;/h4&gt;
+
+&lt;p&gt;function Constructor(name,age,sayName){
+	this.name = name;
+	this.age = age;
+	if(typeof this.sayName != ‘function’){
+		Constructor.prototype.sayName = function(){
+			console.log(this.name)
+		}
+	}
+}&lt;/p&gt;
+
+&lt;h4 id=&quot;8寄生构造函数模式&quot;&gt;8、寄生构造函数模式&lt;/h4&gt;
+
+&lt;p&gt;function Construtor(name,age){
+	var obj = new Object();
+	obj.name = name;
+	obj.age = age;
+	obj.sayName = function(){
+		console.log(this.name)
+	}
+	return obj;
+}&lt;/p&gt;
+
+&lt;p&gt;很少用。&lt;/p&gt;
+
+&lt;h4 id=&quot;9稳妥构造函数模式&quot;&gt;9、稳妥构造函数模式&lt;/h4&gt;
+
+&lt;p&gt;function Constructor(name,age){
+	var obj = new Object();
+	obj.name = name;
+	obj.age = age;
+	obj.sayName = function(){
+		console.log(name)
+	}
+	return obj;
+}&lt;/p&gt;
+
+&lt;p&gt;var object1 = Constructor(‘xx’,20)&lt;/p&gt;
+
+&lt;p&gt;稳妥就是指没有公共属性，方法也不引用this对象。
+适合在一些禁止this和new的环境中使用。&lt;/p&gt;
+
+&lt;h3 id=&quot;继承&quot;&gt;继承&lt;/h3&gt;
+
+&lt;h4 id=&quot;原型链继承&quot;&gt;原型链继承：&lt;/h4&gt;
+
+&lt;p&gt;function A(){
+	this.name = ‘a’;
+}&lt;/p&gt;
+
+&lt;p&gt;A.prototype.sayName = function(){
+	console.log(this.name)
+}&lt;/p&gt;
+
+&lt;p&gt;function B(){
+	this.name = ‘b’
+}&lt;/p&gt;
+
+&lt;p&gt;B.prototype = new A();&lt;/p&gt;
+
+&lt;p&gt;var b = new B();&lt;/p&gt;
+
+&lt;p&gt;b.sayName(); // ‘b’&lt;/p&gt;
+
+&lt;p&gt;每个对象的实例都会包含一个指向原型对象的指针，如果B对象的原型对象等于A对象的实例，这就相当于把A的对象原型指向了B对象的对象原型，这样就可以说是B继承了A，但同时也会继承实例所拥有的属性和方法。&lt;/p&gt;
+
+&lt;p&gt;所有对象的原型的默认原型都是Object(),所以你总是能在所有的对象里发现最初的原型对象是Object()&lt;/p&gt;
+
+&lt;p&gt;原型继承会有一些问题，那就是当你继承的父对象的属性中有引用类型的值，那当你修改子类型的这个属性的时候，同时也会修改父类型的属性。&lt;/p&gt;
+
+&lt;p&gt;function A(){
+	this.color = [‘red’,’blue’,’yellow’];
+}&lt;/p&gt;
+
+&lt;p&gt;function B(){
+	A.call(this);	
+}&lt;/p&gt;
+
+&lt;h4 id=&quot;借用构造函数继承&quot;&gt;借用构造函数继承：&lt;/h4&gt;
+
+&lt;p&gt;借用构造函数就是在构造函数B中执行A构造函数，然后把A中所绑定到this的属性都绑定到B上来。
+这样即使是引用类型的值，也可以在子对象实例中随意修改了。&lt;/p&gt;
+
+&lt;p&gt;但是借用构造函数也有点问题，就是之前构造函数中存在的问题，没法共享。&lt;/p&gt;
+
+&lt;h4 id=&quot;组合继承&quot;&gt;组合继承：&lt;/h4&gt;
+
+&lt;p&gt;这个时候就要用组合继承了，就是构造函数和原型对象一起用起来。&lt;/p&gt;
+
+&lt;p&gt;function A(){
+	this.color = [‘red’,’blue’,’yellow’];
+}&lt;/p&gt;
+
+&lt;p&gt;A.prototype.drawColor = function(){
+	console.log(this.color)
+}&lt;/p&gt;
+
+&lt;p&gt;function B(){
+	A.call(this);	
+	this.xxx = xxx;
+}&lt;/p&gt;
+
+&lt;p&gt;B.prototype = new A();&lt;/p&gt;
+
+&lt;p&gt;B.prototype.xxx = function(){
+	// do something
+}&lt;/p&gt;
+
+&lt;h4 id=&quot;原型式继承&quot;&gt;原型式继承：&lt;/h4&gt;
+
+&lt;p&gt;function object(obj){
+	function F(){}
+	F.prototype = obj;
+	return new F();
+}&lt;/p&gt;
+
+&lt;h4 id=&quot;组合寄生模式&quot;&gt;组合寄生模式&lt;/h4&gt;
+
+&lt;p&gt;function inheritPrototype(subType, superType){
+	 var prototype = Object(superType.prototype); //创建对象
+	 prototype.constructor = subType; //增强对象
+	 subType.prototype = prototype; //指定对象
+}&lt;/p&gt;
+
+&lt;p&gt;function SuperType(){
+	this.name = ‘super’;
+}&lt;/p&gt;
+
+&lt;p&gt;SuperType.prototype.sayName = function(){
+	console.log(this.name)
+}&lt;/p&gt;
+
+&lt;p&gt;function SubType(){
+	SuperType.call(this)
+	this.name = ‘sub’;
+}&lt;/p&gt;
+
+&lt;p&gt;inheritPrototype(SubType,SuperType)&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 14 Jun 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/javascript/2017/06/14/professional-javascript-for-web-note.html</link>
+        <guid isPermaLink="true">http://localhost:4000/javascript/2017/06/14/professional-javascript-for-web-note.html</guid>
+        
+        
+        <category>javascript</category>
+        
+      </item>
+    
+      <item>
+        <title>博客由来</title>
+        <description>&lt;p&gt;来深后一直想做自己的博客网站。去年11月到现今已有近8个月之久，期间博客皮肤一直没有打定。
+做了好几个皮肤模板都不满意，但又想出彩，苦于没有设计功底且耐心极差，做了一点后没有头绪就放弃了，隔好几月再拾起，仍是进展不大，导致制作拖延了很久。后在网上看到别人做项目的经验：先做出来，再去优化。于是做了最粗糙但依然独特的一版，就是现在这个博客皮肤，带着一股老干部的气息，我很喜欢。&lt;/p&gt;
+
+&lt;p&gt;想做自己的博客是有些原因的。最主要的原因还是用来撑“面子”。工作三年，说进步肯定是有，但回头望去却空空荡荡，有一种说不出
+空虚感。这种空虚感就是没有自己的积累，或者说一种见证。之前对于工作的理解是只要会做就行，能出货就很好。但随工作年龄增长，发现光自己埋头苦干并不是最好。来深后在腾讯做外包，效力于大企业，越发觉得自己渺小。在这里，干好本职工作是最基础的，想要转正，还得有自己的积累。而积累的最好方式就是多输出，于是就有了现在这个博客作为我技术/经验之映照。&lt;/p&gt;
+</description>
+        <pubDate>Tue, 26 Jul 2016 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/my/blog/2016/07/26/first-post.html</link>
+        <guid isPermaLink="true">http://localhost:4000/my/blog/2016/07/26/first-post.html</guid>
+        
+        
+        <category>my</category>
+        
+        <category>blog</category>
+        
+      </item>
+    
+  </channel>
+</rss>
