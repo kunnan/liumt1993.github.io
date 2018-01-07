@@ -16,7 +16,7 @@
     <meta name="wxm:img_url" content="//wximg.qq.com/tmt/_demo/wxmoment/img/thumb.jpg">
     <!-- 分享链接-->
     <meta name="wxm:link" content="http://localhost:8080/html/index.html">
-    <link rel="stylesheet" type="text/css" data-href="../css/style-index.41b8e87c.css">
+    <link rel="stylesheet" type="text/css" data-href="../css/style-index.04fc8df4.css">
 <script>function webpsupport(a){var c=window.localStorage;if(typeof a!="function"){a=function(){}}if(c!=undefined&&c._tmtwebp!=undefined&&c._tmtwebp==0){a();return false}else{if(c!=undefined&&c._tmtwebp!=undefined&&c._tmtwebp==1){a(1);return true}else{var f=new Image();f.onload=f.onerror=function(){if(f.height!=2){if(c!=undefined){c._tmtwebp=0}a();return false}else{if(c!=undefined){c._tmtwebp=1}a(1);return true}};f.src="data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA"}}};;(function(){function b(t){var f=document.getElementsByTagName("link");for(var e=0,d=f.length;e<d;e++){if(t){f[e].href=f[e].getAttribute("data-href").replace(".css",".webp.css");}else{f[e].href=f[e].getAttribute("data-href")}}}webpsupport(b);})();</script><script>window.imgMap = {"arrow.0847430b.png":1,"btn.194a73cf.png":1,"large-btn.3740c217.png":1,"loading-bg.d8f1f9ca.png":1,"s1.e4f0283f.jpg":1,"s2.461df57c.jpg":1,"s3.91c961c2.jpg":1,"s4.2e9478c0.jpg":1,"s5.27a05b8d.jpg":1}</script>
 
 <body>
@@ -93,8 +93,8 @@
             <a href="javascript:;" class="btn large" id="enter-h5">生成我的</a>
         </div>
     </div>
-    <div class="loading-screen" style="display: none">
-        <div class="loading">
+    <div class="loading-screen">
+        <div class="loading" style="display: none">
             <div class="loading-bar">
                 <div class="loading-progress"></div>
             </div>
@@ -112,8 +112,9 @@
     // 预加载
     var startPreLoad = function() {
         var basePath = "../img/"
-        $('.loading-screen').show()
         var loader = new WxMoment.Loader();
+
+        $('.loading').show()
 
         //声明资源文件列表
         var fileList = ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 'btn.png', 'large-btn.png', 'arrow.png'];
