@@ -13,7 +13,7 @@
     <meta name="wxm:appmessage_title" content="招聘年度盛典">
     <meta name="wxm:appmessage_desc" content="邀您一起参与招聘年度盛典">
     <!-- 分享缩略图，必须为绝对路径，且图片链接必须为http协议（由于安卓微信客户端无法获取https的分享图片，仅此处需要强制http协议）-->
-    <meta name="wxm:img_url" content="//wximg.qq.com/tmt/_demo/wxmoment/img/thumb.jpg">
+    <meta name="wxm:img_url" content="../img/thumb.jpg">
     <!-- 分享链接-->
     <meta name="wxm:link" content="http://localhost:8080/html/index.html">
     <link rel="stylesheet" type="text/css" href="../css/style-index.css">
@@ -26,14 +26,7 @@
         </section>
         <section class="screen screen2">
             <div class="main-content">
-                <div class="speaking" id="user-speaking">
-                    <h2>亲爱的 ${username} 您好：</h2>
-                    <p class="split-p">今天是你加入腾讯招聘的 ${duration} 天，过去每一个有苦有甜一起战斗的日子，都将成为我们最美好的记忆。正是因为你的努力和付出，精兵强将才得以成为现实，成为被铭记的肯定。</p>
-                    <p>感谢你在过去一年的辛勤付出，每个大家一起经历的瞬间都闪着耀眼的光芒。</p>
-                    <p>诚挚邀请你参加2018年腾讯招聘盛典，这个专属我们招聘人的欢聚。</p>
-                    <p class="split-p">2017，再见，</p>
-                    <p>你好，2018！</p>
-                </div>
+                <div class="speaking" id="user-speaking"></div>
             </div>
             <div class="screen-arrow"></div>
         </section>
@@ -44,12 +37,11 @@
                     <p><span class="time">09:10-09:40</span>入场签到、合影</p>
                     <p><span class="time">09:40-10:00</span>开场</p>
                     <p><span class="time">10:00-10:45</span>外部嘉宾分享</p>
-                    <p><span class="time">10:45-11:05</span>招聘回顾&2018重点方向</p>
-                    <p><span class="time">11:05-11:20</span>Alex分享</p>
-                    <p><span class="time">11:20-11:35</span>Xidan、Tom分享致辞</p>
+                    <p><span class="time">10:45-11:20</span>年度分享致辞</p>
+                    <p><span class="time">11:20-11:35</span>2017招聘回顾&2018重点方向</p>
                     <p><span class="time">11:35-12:15</span>招聘大团队颁奖盛典</p>
-                    <p><span class="time">12:15-14:30</span>午餐+抽奖+休息</p>
-                    <p><span class="time">14:30-17:00</span>拓展+抽奖</p>
+                    <p><span class="time">12:15-14:30</span>抽奖+午餐+休息</p>
+                    <p><span class="time">14:30-17:00</span>拓展游戏</p>
                 </div>
             </div>
             <div class="screen-arrow"></div>
@@ -82,14 +74,7 @@
     </div>
     <div class="share-screen">
         <div class="main-content">
-            <div class="speaking" id="sharer-speaking">
-                <h2>亲爱的 ${username} 您好：</h2>
-                <p class="split-p">今天是你加入腾讯招聘的 ${duration} 天，过去每一个有苦有甜一起战斗的日子，都将成为我们最美好的记忆。正是因为TA的努力和付出，精兵强将才得以成为现实，成为被铭记的肯定。</p>
-                <p>感谢你在过去一年的辛勤付出，每个大家一起经历的瞬间都闪着耀眼的光芒。</p>
-                <p>诚挚邀请你参加2018年腾讯招聘盛典，这个专属我们招聘人的欢聚。</p>
-                <p class="split-p">2017，再见，</p>
-                <p>你好，2018！</p>
-            </div>
+            <div class="speaking" id="sharer-speaking"></div>
             <a href="javascript:;" class="btn large" id="enter-h5">生成我的</a>
         </div>
     </div>
@@ -101,6 +86,14 @@
             <div class="loading-tips">努力加载中...</div>
         </div>
     </div>
+    <script type="text/template" id="speaking-tmpl">
+        <h2>亲爱的${username}您好：</h2>
+        <p class="split-p">今天是你加入腾讯招聘团队的 ${duration} 天，过去每一个有苦有甜一起战斗的日子，都将成为我们最美好的记忆。正是因为你的努力和付出，精兵强将才得以成为现实，成为被铭记的肯定。</p>
+        <p>感谢你在过去一年的辛勤付出，每个大家一起经历的瞬间都闪着耀眼的光芒。</p>
+        <p>诚挚邀请你参加2018年腾讯招聘盛典，这个专属我们招聘人的欢聚。</p>
+        <p class="split-p">2017，我们用努力和实力收获了肯定，</p>
+        <p>2018，我们一起携手，继续逐梦前行！</p>
+    </script>
     <script src="../js/wxmoment.min.js"></script>
     <script>
     // 横竖屏提示
@@ -152,7 +145,7 @@
     // 渲染对用户的祝语
     var loadUserSpeaking = function(user) {
         var infoEl = $('#user-speaking')
-        var tmpl = infoEl.html().replace('${username}', user.name)
+        var tmpl = $('#speaking-tmpl').html().replace('${username}', user.name)
             .replace('${duration}', user.duration)
         infoEl.html(tmpl)
     }
@@ -197,7 +190,7 @@
     // 渲染分享者的祝语
     var loadSahrerSpeaking = function(sharer) {
         var infoEl = $('#sharer-speaking')
-        var tmpl = infoEl.html().replace('${username}', sharer.name)
+        var tmpl = $('#speaking-tmpl').html().replace('${username}', sharer.name)
             .replace('${duration}', sharer.duration)
         infoEl.html(tmpl)
     }
@@ -208,11 +201,11 @@
         // 用户白名单
         var whiteList = {
             'v_pastorliu': {
-                'name': 'v_pastorliu',
+                'name': '刘历',
                 'duration': 560,
             },
             'zhangping': {
-                'name': 'zhangping',
+                'name': '张平',
                 'duration': 740,
             },
         }
@@ -223,19 +216,27 @@
         currentUser = whiteList[currentUser]
         sharer = whiteList[sharer]
 
-        if (!currentUser) {
+        // 从分享进入
+        if (sharer && !currentUser) {
+            loadSahrerSpeaking(sharer)
+            shareScreen.addClass('show')
+            enterBtn.hide()
+            $('.loading-screen').addClass('hide')
+            return
+        }
+
+        // 既不是分享进入也没有权限
+        if (!currentUser && !sharer) {
             showResult('noPermission')
             return
         }
 
         startPreLoad()
 
-        wxShare.set('timeline', 'link', "http://localhost:8080/html/index.html?sharer=" + currentUser.name);
-
+        // 有权限的分享者
         if (sharer) {
             loadSahrerSpeaking(sharer)
             shareScreen.addClass('show')
-            // 生成我的
             enterBtn.on('click', function() {
                 shareScreen.removeClass('show')
                 initContentSlider(currentUser)
@@ -243,11 +244,13 @@
         } else {
             initContentSlider(currentUser)
         }
+
+        // 设置分享
+        wxShare.set('timeline', 'link', "http://localhost:8080/html/index.html?sharer=" + currentUser.name);
     }
 
     $(document).on('ready', function() {
-        var sharer = getUrlParams('sharer')
-        enterH5('v_pastorliu', sharer)
+        enterH5('v_pastorliu', getUrlParams('sharer'))
     })
 
     // 参加登记
