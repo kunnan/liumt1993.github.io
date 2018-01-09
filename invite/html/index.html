@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <title>招聘年度盛典</title>
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
+    <meta name="keywords" content="招聘年度盛典">
+    <meta name="description" content="招聘年度盛典">
     <meta name="apple-mobile-web-app-capable" content="no">
     <meta name="format-detection" content="telephone=no">
     <meta name="wxm:timeline_title" content="招聘年度盛典">
     <meta name="wxm:appmessage_title" content="招聘年度盛典">
     <meta name="wxm:appmessage_desc" content="邀您一起参与招聘年度盛典">
     <!-- 分享缩略图，必须为绝对路径，且图片链接必须为http协议（由于安卓微信客户端无法获取https的分享图片，仅此处需要强制http协议）-->
-    <meta name="wxm:img_url" content="../img/thumb.jpg">
+    <meta name="wxm:img_url" content="http://cdn.m.tencent.com/hr/h5/FiveStar2018/img/thumb.jpg">
     <!-- 分享链接-->
     <meta name="wxm:link" content="http://localhost:8080/html/index.html">
     <link rel="stylesheet" type="text/css" href="../css/style-index.css">
@@ -64,6 +64,7 @@
             </div>
         </section>
     </div>
+    <span class="bgm-switch"></span>
     <div class="result-screen">
         <div class="main-content">
             <div class="result-info">
@@ -86,9 +87,10 @@
             <div class="loading-tips">努力加载中...</div>
         </div>
     </div>
+    <audio src="https://cdn.m.tencent.com/hr/h5/FiveStar2018/media/bgm.mp3" loop="true" id="bgm" style="display: none"></audio>
     <script type="text/template" id="speaking-tmpl">
-        <h2>亲爱的${username}您好：</h2>
-        <p class="split-p">今天是你加入腾讯招聘团队的 ${duration} 天，过去每一个有苦有甜一起战斗的日子，都将成为我们最美好的记忆。正是因为你的努力和付出，精兵强将才得以成为现实，成为被铭记的肯定。</p>
+        <h2>亲爱的${Cname}您好：</h2>
+        <p class="split-p">今天是你加入腾讯招聘团队的 ${Ourage} 年，过去每一个有苦有甜一起战斗的日子，都将成为我们最美好的记忆。正是因为你的努力和付出，精兵强将才得以成为现实，成为被铭记的肯定。</p>
         <p>感谢你在过去一年的辛勤付出，每个大家一起经历的瞬间都闪着耀眼的光芒。</p>
         <p>诚挚邀请你参加2018年腾讯招聘盛典，这个专属我们招聘人的欢聚。</p>
         <p class="split-p">2017，我们用努力和实力收获了肯定，</p>
@@ -102,18 +104,51 @@
     // 微信分享
     var wxShare = new WxMoment.Share();
 
+    var playBgm = function() {
+        var bgm = $('#bgm')[0]
+        var initVolume = 0
+        var speed = 0.05
+        bgm.play()
+        var timer = setInterval(function() {
+            var volume = initVolume += speed
+            volume = volume.toFixed(1)
+            console.log(volume)
+            if (volume >= 1) {
+                volume = 1
+                clearInterval(timer)
+            }
+            bgm.volume = volume
+        }, 60)
+    }
+
+    var stopBgm = function() {
+        var bgm = $('#bgm')[0]
+        var initVolume = 1
+        var speed = 0.05
+        var timer = setInterval(function() {
+            var volume = initVolume -= speed
+            volume = volume.toFixed(1)
+            console.log(volume)
+            if (volume <= 0) {
+                volume = 0
+                clearInterval(timer)
+                bgm.pause()
+            }
+            bgm.volume = volume
+        }, 60)
+    }
+
     // 预加载
     var startPreLoad = function() {
-        var basePath = "../img/"
         var loader = new WxMoment.Loader();
 
         $('.loading').show()
 
         //声明资源文件列表
-        var fileList = ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 'btn.png', 'large-btn.png', 'arrow.png'];
+        var fileList = ['https://cdn.m.tencent.com/hr/h5/FiveStar2018/media/bgm.mp3', '../img/s1.jpg', '../img/s2.jpg', '../img/s3.jpg', '../img/s4.jpg', '../img/s5.jpg', '../img/btn.png', '../img/large-btn.png', '../img/arrow.png'];
 
         for (var i = 0; i < fileList.length; i++) {
-            loader.addImage(basePath + fileList[i]);
+            loader.addImage(fileList[i]);
         }
 
         //进度监听
@@ -125,6 +160,16 @@
         //加载完成
         loader.addCompletionListener(function() {
             $('.loading-screen').addClass('hide')
+            playBgm()
+            $('.bgm-switch').on('click', function() {
+                if (!$(this).hasClass('off')) {
+                    stopBgm()
+                } else {
+                    playBgm()
+                }
+                $(this).toggleClass('off')
+            })
+
         });
 
         //启动加载
@@ -145,8 +190,8 @@
     // 渲染对用户的祝语
     var loadUserSpeaking = function(user) {
         var infoEl = $('#user-speaking')
-        var tmpl = $('#speaking-tmpl').html().replace('${username}', user.name)
-            .replace('${duration}', user.duration)
+        var tmpl = $('#speaking-tmpl').html().replace('${Cname}', user.Cname)
+            .replace('${Ourage}', user.Ourage)
         infoEl.html(tmpl)
     }
 
@@ -157,6 +202,8 @@
             animationPlayOnce: true,
         });
         loadUserSpeaking(user)
+        wxShare.set('timeline', 'link', location.origin + "?id=" + user.ID);
+        wxShare.set('timeline', 'desc', "这是我的招聘盛典邀请函，一起过来看下吧");
     }
 
     // 结果提示
@@ -190,34 +237,19 @@
     // 渲染分享者的祝语
     var loadSahrerSpeaking = function(sharer) {
         var infoEl = $('#sharer-speaking')
-        var tmpl = $('#speaking-tmpl').html().replace('${username}', sharer.name)
-            .replace('${duration}', sharer.duration)
+        var tmpl = $('#speaking-tmpl').html().replace('${Cname}', user.Cname)
+            .replace('${Ourage}', user.Ourage)
         infoEl.html(tmpl)
     }
 
     // 进入
-    var enterH5 = function(currentUser, sharer) {
-
-        // 用户白名单
-        var whiteList = {
-            'v_pastorliu': {
-                'name': '刘历',
-                'duration': 560,
-            },
-            'zhangping': {
-                'name': '张平',
-                'duration': 740,
-            },
-        }
+    var enterH5 = function(user, sharer) {
 
         var shareScreen = $('.share-screen')
         var enterBtn = $('#enter-h5')
 
-        currentUser = whiteList[currentUser]
-        sharer = whiteList[sharer]
-
         // 从分享进入
-        if (sharer && !currentUser) {
+        if (sharer && !user && sharer.Ename !== user.Ename) {
             loadSahrerSpeaking(sharer)
             shareScreen.addClass('show')
             enterBtn.hide()
@@ -226,7 +258,7 @@
         }
 
         // 既不是分享进入也没有权限
-        if (!currentUser && !sharer) {
+        if (!user && !sharer) {
             showResult('noPermission')
             return
         }
@@ -239,23 +271,67 @@
             shareScreen.addClass('show')
             enterBtn.on('click', function() {
                 shareScreen.removeClass('show')
-                initContentSlider(currentUser)
+                initContentSlider(user)
             })
         } else {
-            initContentSlider(currentUser)
+            initContentSlider(user)
         }
-
-        // 设置分享
-        wxShare.set('timeline', 'link', "http://localhost:8080/html/index.html?sharer=" + currentUser.name);
     }
 
     $(document).on('ready', function() {
-        enterH5('v_pastorliu', getUrlParams('sharer'))
+        enterH5({
+            Cname: "刘历",
+            Ename: "v_pastorliu",
+            Ourage: "2",
+        })
+        // if (getUrlParams('id')) {
+        //     $.ajax({
+        //         type: 'get',
+        //         url: 'http://10.12.72.200:9502/Recruit/init',
+        //         data: {
+        //             'id': getUrlParams('id')
+        //         },
+        //         success: function(res) {
+        //             if (res.error == 0) {
+        //                 enterH5(res.data.currentUser, res.data.shareUser)
+        //             } else {
+        //                 alert('网络繁忙，刷新试试')
+        //             }
+        //         },
+        //         error: function() {
+        //             alert('网络繁忙，刷新试试')
+        //         }
+        //     })
+        // } else {
+        //     $.ajax({
+        //         type: 'get',
+        //         url: 'http://10.12.72.200:9502/Recruit/init',
+        //         success: function(res) {
+        //             if (res.error == 0) {
+        //                 enterH5(res.data.currentUser, null)
+        //             } else {
+        //                 alert('网络繁忙，刷新试试')
+        //             }
+        //         },
+        //         error: function() {
+        //             alert('网络繁忙，刷新试试')
+        //         }
+        //     })
+        // }
     })
 
     // 参加登记
     $('#join-btn').on('click', function() {
-        showResult('thanks')
+        $.ajax({
+            type: 'get',
+            url: 'http://10.12.72.200:9502/Recruit/accept',
+            success: function() {
+                showResult('thanks')
+            },
+            error: function() {
+                alert('网络繁忙，稍后再试')
+            }
+        })
     })
 
     // 残忍拒绝
