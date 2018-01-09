@@ -97,7 +97,58 @@
         <p>2018，我们一起携手，继续逐梦前行！</p>
     </script>
     <script src="../js/wxmoment.min.js"></script>
+    <script src="../js/fastclick.js"></script>
     <script>
+    $(function() {
+
+        FastClick.attach(document.body);
+
+        enterH5({
+            Cname: "刘历",
+            Ename: "v_pastorliu",
+            Ourage: "2",
+        })
+        // if (getUrlParams('id')) {
+        //     $.ajax({
+        //         type: 'get',
+        //         url: 'http://10.12.72.200:9502/Recruit/init',
+        //         data: {
+        //             'id': getUrlParams('id')
+        //         },
+        //         success: function(res) {
+        //             if (res.error == 0) {
+        //                 enterH5(res.data.currentUser, res.data.shareUser)
+        //             } else {
+        //                 alert('网络繁忙，刷新试试')
+        //             }
+        //         },
+        //         error: function() {
+        //             alert('网络繁忙，刷新试试')
+        //         }
+        //     })
+        // } else {
+        //     $.ajax({
+        //         type: 'get',
+        //         url: 'http://10.12.72.200:9502/Recruit/init',
+        //         success: function(res) {
+        //             if (res.error == 0) {
+        //                 enterH5(res.data.currentUser, null)
+        //             } else {
+        //                 alert('网络繁忙，刷新试试')
+        //             }
+        //         },
+        //         error: function() {
+        //             alert('网络繁忙，刷新试试')
+        //         }
+        //     })
+        // }
+    });
+
+    // IOS微信自动播放兼容
+    document.addEventListener("WeixinJSBridgeReady", function() {
+        $('#bgm')[0].play();
+    }, false);
+
     // 横竖屏提示
     new WxMoment.OrientationTip();
 
@@ -112,7 +163,6 @@
         var timer = setInterval(function() {
             var volume = initVolume += speed
             volume = volume.toFixed(1)
-            console.log(volume)
             if (volume >= 1) {
                 volume = 1
                 clearInterval(timer)
@@ -128,7 +178,6 @@
         var timer = setInterval(function() {
             var volume = initVolume -= speed
             volume = volume.toFixed(1)
-            console.log(volume)
             if (volume <= 0) {
                 volume = 0
                 clearInterval(timer)
@@ -277,48 +326,6 @@
             initContentSlider(user)
         }
     }
-
-    $(document).on('ready', function() {
-        enterH5({
-            Cname: "刘历",
-            Ename: "v_pastorliu",
-            Ourage: "2",
-        })
-        // if (getUrlParams('id')) {
-        //     $.ajax({
-        //         type: 'get',
-        //         url: 'http://10.12.72.200:9502/Recruit/init',
-        //         data: {
-        //             'id': getUrlParams('id')
-        //         },
-        //         success: function(res) {
-        //             if (res.error == 0) {
-        //                 enterH5(res.data.currentUser, res.data.shareUser)
-        //             } else {
-        //                 alert('网络繁忙，刷新试试')
-        //             }
-        //         },
-        //         error: function() {
-        //             alert('网络繁忙，刷新试试')
-        //         }
-        //     })
-        // } else {
-        //     $.ajax({
-        //         type: 'get',
-        //         url: 'http://10.12.72.200:9502/Recruit/init',
-        //         success: function(res) {
-        //             if (res.error == 0) {
-        //                 enterH5(res.data.currentUser, null)
-        //             } else {
-        //                 alert('网络繁忙，刷新试试')
-        //             }
-        //         },
-        //         error: function() {
-        //             alert('网络繁忙，刷新试试')
-        //         }
-        //     })
-        // }
-    })
 
     // 参加登记
     $('#join-btn').on('click', function() {
