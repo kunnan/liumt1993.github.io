@@ -145,8 +145,8 @@
     });
 
     // IOS微信自动播放兼容
-    document.addEventListener("WeixinJSBridgeReady", function() {
-        $('#bgm')[0].play();
+    $(document).on("WeixinJSBridgeReady", function() {
+        playBgm()
     }, false);
 
     // 横竖屏提示
